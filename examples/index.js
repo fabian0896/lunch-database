@@ -10,5 +10,10 @@ const db = require('../index');
             _id: 'kjjhaslhivkl'
         },
     });
-    console.log(user);
+    console.log(user)
+    await User.update(user._id, {name: 'Fabian Modificado'});
+
+    const result = await User.getAll();
+
+    console.log(result);
 })();

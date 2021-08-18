@@ -1,3 +1,0 @@
-{"$$indexCreated":{"fieldName":"cardId","unique":true,"sparse":false}}
-{"$$indexCreated":{"fieldName":"active","unique":false,"sparse":false}}
-{"company":"kjjhaslhivkl","active":true,"cardId":"123456789","name":"Fabian David Dueñas Garcia","_id":"U1zQAsf2Oq0k4tYJ","createdAt":{"$$date":1629319186258},"updatedAt":{"$$date":1629319186258}}
