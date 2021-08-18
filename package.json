@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "nedb-promise": "github:fabian0896/nedb-promise"
+    "nedb-promises": "github:fabian0896/nedb-promises",
+    "yup": "^0.32.9"
   }
 }
