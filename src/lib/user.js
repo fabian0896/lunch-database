@@ -18,7 +18,10 @@ function setupUser ({UserModel, OrderModel, ProductModel, CompanyModel}) {
     }
 
     function destroy (user) {
-        return UserModel.remove({_id: userId});
+        if (typeof user === 'object') {
+            user = user._id;
+        }
+        return UserModel.remove({_id: user});
     }
 
 
