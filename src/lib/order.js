@@ -90,6 +90,9 @@ function setupOrder({ UserModel, OrderModel, ProductModel, SerialModel, CompanyM
                                     .exec();
             count += limit;
             orders = await addAllValues(orders);
+            if(orders.length < limit) {
+                return {data: orders, next: null }
+            }
             return {data: orders, next: nextFunc};
         }
 
