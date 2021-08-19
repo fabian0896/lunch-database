@@ -57,10 +57,11 @@ function setupOrder ({UserModel, OrderModel, ProductModel, SerialModel}) {
             order.user = users.find(u => u._id === order.user);
             order.products = order.products.map(product => ({
                 ...products.find((p) => p._id === product._id),
+                uniqueId: product.cartId || product._id,
                 details: product.details
             }));
             return order;
-        })
+        });
 
         return orders;
     }
