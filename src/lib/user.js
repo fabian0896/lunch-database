@@ -17,7 +17,7 @@ function setupUser ({UserModel, OrderModel, ProductModel, CompanyModel}) {
         return result;
     }
 
-    function destroy (userId) {
+    function destroy (user) {
         return UserModel.remove({_id: userId});
     }
 
@@ -96,6 +96,13 @@ function setupUser ({UserModel, OrderModel, ProductModel, CompanyModel}) {
         return users;
     }
 
+    async function setActive(user, active) {
+        if (typeof user === 'object') {
+            user = user._id;
+        }
+        await UserModel.update({ _id: user }, { $set: { active } }, {})
+    }
+
     return {
         create,
         update,
@@ -105,7 +112,8 @@ function setupUser ({UserModel, OrderModel, ProductModel, CompanyModel}) {
         getByIdentification,
         getAll,
         addOrder,
-        searchByName
+        searchByName,
+        setActive
     }
 }
 
