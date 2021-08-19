@@ -13,7 +13,7 @@ function setupUser ({UserModel, OrderModel, ProductModel, CompanyModel}) {
 
 
     async function update(userId, updateData){
-        const result = await UserModel.update({_id: userId}, {$set: updateData}, {})
+        const result = await UserModel.update({ _id: userId }, { $set: updateData }, {});
         return result;
     }
 
@@ -35,7 +35,7 @@ function setupUser ({UserModel, OrderModel, ProductModel, CompanyModel}) {
    
     async function getByCardId(cardId) {
         // get the user with caompnay info
-        const user = await UserModel.findOne({ cardId });
+        const user = await UserModel.findOne({ cardId, active: true });
         if (!user) return null; 
         const company = await CompanyModel.findOne({ _id: user.company });
         user.id = user._id;
@@ -53,9 +53,7 @@ function setupUser ({UserModel, OrderModel, ProductModel, CompanyModel}) {
         return user;
     }
 
-   
-    async function getAll () {
-        let users = await UserModel.find({});
+    async function addCompaniesToUsers(users) {
         const companieIds = users.reduce((companies, user) => {
             if(companies.indexOf(user.company) !== -1){
                 return companies;
@@ -65,18 +63,37 @@ function setupUser ({UserModel, OrderModel, ProductModel, CompanyModel}) {
         const companies = await CompanyModel.find({ _id: { $in: companieIds }});
         users = users.map(user => ({
             ...user,
+            id: user._id,
             company: companies.find(c => c._id === user.company),
-        }))
+        }));
+        return users;
+    }
+
+    async function getAll () {
+        let users = await UserModel.find({active: true});
+        users = await addCompaniesToUsers(users);
         return users
     }
 
-    function addOrder (user, order) {
+    async function addOrder (user, order) {
         return {}
     }
 
     
-    async function searchByName(name) {     
-        return {};
+    async function searchByName(name) {    
+        let users = await UserModel.find({
+            $or: [
+                {
+                    name: { $regex: RegExp(name, 'ig') }
+                },
+                {
+                    identification: name
+                }
+            ],
+            active: true
+        });
+        users = await addCompaniesToUsers(users);
+        return users;
     }
 
     return {

@@ -1,4 +1,4 @@
 {"$$indexCreated":{"fieldName":"cardId","unique":true,"sparse":false}}
 {"$$indexCreated":{"fieldName":"active","unique":false,"sparse":false}}
-{"company":"kjjhaslhivkl","active":true,"cardId":"123456789","name":"Fabian David Dueñas Garcia","_id":"GVz3683YK01DGnsG","createdAt":{"$$date":1629333416879},"updatedAt":{"$$date":1629333416879}}
-{"company":"kjjhaslhivkl","active":true,"cardId":"123456789","name":"Fabian Modificado","_id":"GVz3683YK01DGnsG","createdAt":{"$$date":1629333416879},"updatedAt":{"$$date":1629333416902}}
+{"company":"lBxvJeBBLavSo6pP","active":true,"cardId":"123456789","name":"Fabian David Dueñas Garcia","_id":"xwqaOmzizRHmt0Oo","createdAt":{"$$date":1629344985826},"updatedAt":{"$$date":1629344985826}}
+{"company":"lBxvJeBBLavSo6pP","active":true,"cardId":"123456789","name":"Fabian Modificado","_id":"xwqaOmzizRHmt0Oo","createdAt":{"$$date":1629344985826},"updatedAt":{"$$date":1629344985834}}

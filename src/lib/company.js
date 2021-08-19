@@ -1,33 +1,55 @@
 
-function setupCompany ({UserModel, OrderModel, ProductModel, CompanyModel}) {
+function setupCompany ({UserModel, CompanyModel}) {
    
-    function create (values){
-        return {}
+    async function create (values){
+        const result = await CompanyModel.create(values);
+        result.id = result._id;
+        return result;
     }
 
-    function update (companyId, updateData) {
-        return {}
+    async function update (companyId, updateData) {
+        const result = await CompanyModel.update({ _id: companyId }, { $set: updateData }, {});
+        return result;
     }
 
     
-    function destroy (companyId) {
-        return {}
+    async function destroy (company) {
+        if(typeof company === 'object'){
+            company = company._id;
+        }
+        const result = await CompanyModel.remove({ _id: company });
+        return result;
     }
 
     
     async function getListWithUsers () {
-        
-        return {};
+        const companies = await CompanyModel.find({ active: true });
+        const results = [];
+        for(company of companies){
+            const users = await UserModel.find({ company: company._id });
+            results.push({
+                ...company,
+                id: company._id,
+                users
+            });
+        }
+        return results;
     }
 
     
-    function getList (raw = false) {
-        return {};
+    async function getList () {
+        const companies = await CompanyModel.find({ active: true });
+        return companies.map((company) => ({
+            ...company,
+            id: company._id
+        }))
     }
 
     
-    function getById (companyId) {
-        return {};
+    async function getById (companyId) {
+        const company = await CompanyModel.findOne({ _id: companyId });
+        company.id = company._id;
+        return company;
     }
 
     return {

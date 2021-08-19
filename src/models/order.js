@@ -6,7 +6,7 @@ const Yup = require('yup');
 const name = 'orders';
 
 const validationSchema = Yup.object().shape({
-    userId: Yup.string().required(),
+    user: Yup.string().required(),
     products: Yup.array().min(1),
 });
 
