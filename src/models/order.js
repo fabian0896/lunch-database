@@ -6,6 +6,7 @@ const Yup = require('yup');
 const name = 'orders';
 
 const validationSchema = Yup.object().shape({
+    consecutive: Yup.number().required(),
     user: Yup.string().required(),
     products: Yup.array().min(1),
 });

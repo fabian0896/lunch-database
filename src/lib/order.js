@@ -1,4 +1,4 @@
-function setupOrder ({UserModel, OrderModel, ProductModel, CompanyModel}) {
+function setupOrder ({UserModel, OrderModel, ProductModel, SerialModel}) {
    
     async function create (user ,productList) {
         if (typeof user === 'object'){
@@ -12,8 +12,11 @@ function setupOrder ({UserModel, OrderModel, ProductModel, CompanyModel}) {
 
         if (!productList.length) throw new Error('Los pedidos deben tener por lo menos un producto');
         
+        const consecutive = await SerialModel.getConsecutive('orders');
+
 
         const order = await OrderModel.create({
+            consecutive,
             user: user._id,
             products: productList
         });

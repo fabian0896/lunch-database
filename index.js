@@ -4,6 +4,7 @@ const setupUserModel = require('./src/models/user');
 const setupOrderModel = require('./src/models/order');
 const setupCompanyModel = require('./src/models/company');
 const setupProductModel = require('./src/models/product');
+const setupSerialModel = require('./src/models/serial');
 
 const setupUser = require('./src/lib/user');
 const setupCompany = require('./src/lib/company');
@@ -27,12 +28,14 @@ Datastore.prototype.create = async function(values) {
     const CompanyModel = await setupCompanyModel(config.path, config.filename)
     const ProductModel = await setupProductModel(config.path, config.filename);
     const OrderModel = await setupOrderModel(config.path, config.filename);
-    
+    const SerialModel = await setupSerialModel(config.path, config.filename);
+
     const models = {
         UserModel,
         OrderModel, 
         CompanyModel, 
-        ProductModel,  
+        ProductModel,
+        SerialModel  
     };
 
     const User = setupUser(models);
