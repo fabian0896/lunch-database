@@ -1,3 +1,0 @@
-{"active":true,"favorite":false,"image":"/user/some/image.jpeg","price":6500,"name":"Almuerzo simple","_id":"3UkGqbexOvmivctJ","createdAt":{"$$date":1629380631850},"updatedAt":{"$$date":1629380631850}}
-{"$$indexCreated":{"fieldName":"favorite","unique":false,"sparse":false}}
-{"$$indexCreated":{"fieldName":"active","unique":false,"sparse":false}}

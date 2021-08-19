@@ -1,3 +1,0 @@
-{"company":"DQrkTkjCfqfYg7Ey","active":true,"cardId":"123456789","name":"Fabian Modificado","_id":"cU15dhvrQaAsygU7","createdAt":{"$$date":1629380631838},"updatedAt":{"$$date":1629380631839}}
-{"$$indexCreated":{"fieldName":"cardId","unique":true,"sparse":false}}
-{"$$indexCreated":{"fieldName":"active","unique":false,"sparse":false}}

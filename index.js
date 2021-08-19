@@ -23,10 +23,10 @@ Datastore.prototype.create = async function(values) {
 
 
  module.exports = async function db(config) {
-    const UserModel = await setupUserModel(config.path);
-    const CompanyModel = await setupCompanyModel(config.path)
-    const ProductModel = await setupProductModel(config.path);
-    const OrderModel = await setupOrderModel(config.path);
+    const UserModel = await setupUserModel(config.path, config.filename);
+    const CompanyModel = await setupCompanyModel(config.path, config.filename)
+    const ProductModel = await setupProductModel(config.path, config.filename);
+    const OrderModel = await setupOrderModel(config.path, config.filename);
     
     const models = {
         UserModel,

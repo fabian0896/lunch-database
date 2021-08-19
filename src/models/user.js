@@ -16,9 +16,9 @@ const validationSchema = Yup.object().shape({
  * 
  * @param {string} databasePath 
  */
-module.exports = async function setupUserModel(databasePath) {
+module.exports = async function setupUserModel(databasePath, filename) {
     const db = Datastore.create({
-        filename: path.join(databasePath, 'database' ,`${name}.db`),
+        filename: path.join(databasePath, filename ,`${name}.db`),
         timestampData: true
     });
     db.validationSchema = validationSchema;
