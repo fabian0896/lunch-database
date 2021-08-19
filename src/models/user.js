@@ -22,8 +22,8 @@ module.exports = async function setupUserModel(databasePath) {
         timestampData: true
     });
     db.validationSchema = validationSchema;
+    await db.load();
     await db.ensureIndex({fieldName: 'cardId', unique: true});
     await db.ensureIndex({fieldName: 'active'});
-    await db.load();
     return db;
 }

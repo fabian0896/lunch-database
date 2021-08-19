@@ -1,4 +1,3 @@
+{"company":"DQrkTkjCfqfYg7Ey","active":true,"cardId":"123456789","name":"Fabian Modificado","_id":"cU15dhvrQaAsygU7","createdAt":{"$$date":1629380631838},"updatedAt":{"$$date":1629380631839}}
 {"$$indexCreated":{"fieldName":"cardId","unique":true,"sparse":false}}
 {"$$indexCreated":{"fieldName":"active","unique":false,"sparse":false}}
-{"company":"lBxvJeBBLavSo6pP","active":true,"cardId":"123456789","name":"Fabian David Dueñas Garcia","_id":"xwqaOmzizRHmt0Oo","createdAt":{"$$date":1629344985826},"updatedAt":{"$$date":1629344985826}}
-{"company":"lBxvJeBBLavSo6pP","active":true,"cardId":"123456789","name":"Fabian Modificado","_id":"xwqaOmzizRHmt0Oo","createdAt":{"$$date":1629344985826},"updatedAt":{"$$date":1629344985834}}

@@ -48,7 +48,7 @@ function setProduct ({ ProductModel }) {
     }
 
    
-    function getFavorites () {
+    async function getFavorites () {
         const products = await ProductModel.find({ active: true, favorite: true });
         return products.map(product => ({...product, id: product._id}));
     }

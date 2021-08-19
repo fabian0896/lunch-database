@@ -23,9 +23,9 @@ module.exports = async function setupProductModel(databasePath) {
         filename: path.join(databasePath, 'database' ,`${name}.db`),
         timestampData: true
     });
+    await db.load();
     await db.ensureIndex({fieldName: 'favorite'});
     await db.ensureIndex({fieldName: 'active'});
     db.validationSchema = validationSchema;
-    await db.load();
     return db;
 }
