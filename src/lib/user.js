@@ -33,7 +33,7 @@ function setupUser ({UserModel, OrderModel, ProductModel, CompanyModel}) {
     }
 
    
-    function getByCardId(cardId) {
+    async function getByCardId(cardId) {
         // get the user with caompnay info
         const user = await UserModel.findOne({ cardId });
         if (!user) return null; 
@@ -44,7 +44,7 @@ function setupUser ({UserModel, OrderModel, ProductModel, CompanyModel}) {
     }
 
  
-    function getByIdentification (identification) {
+    async function getByIdentification (identification) {
         const user = await UserModel.findOne({ identification });
         if (!user) return null; 
         const company = await CompanyModel.findOne({ _id: user.company });
@@ -62,11 +62,10 @@ function setupUser ({UserModel, OrderModel, ProductModel, CompanyModel}) {
             }
             return [...companies, user.company];
         }, []);
-        const promises = companieIds.map((_id) => CompanyModel.findOne({ _id }));
-        const companies = await Promise.all(promises);
+        const companies = await CompanyModel.find({ _id: { $in: companieIds }});
         users = users.map(user => ({
-            ...users,
-            company: companies.find(c => c?._id === user.company),
+            ...user,
+            company: companies.find(c => c._id === user.company),
         }))
         return users
     }
