@@ -23,7 +23,7 @@ function setupCompany ({UserModel, CompanyModel}) {
 
     
     async function getListWithUsers () {
-        const companies = await CompanyModel.find({ active: true });
+        const companies = await CompanyModel.find({ active: true }).sort({ createdAt: -1 }).exec();
         const results = [];
         for(company of companies){
             const users = await UserModel.find({ company: company._id });
@@ -38,7 +38,7 @@ function setupCompany ({UserModel, CompanyModel}) {
 
     
     async function getList () {
-        const companies = await CompanyModel.find({ active: true });
+        const companies = await CompanyModel.find({ active: true }).sort({ createdAt: -1 }).exec();
         return companies.map((company) => ({
             ...company,
             id: company._id

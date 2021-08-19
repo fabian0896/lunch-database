@@ -73,7 +73,7 @@ function setupUser ({UserModel, OrderModel, ProductModel, CompanyModel}) {
     }
 
     async function getAll () {
-        let users = await UserModel.find({active: true});
+        let users = await UserModel.find({active: true}).sort({ createdAt: -1 }).exec();
         users = await addCompaniesToUsers(users);
         return users
     }
@@ -94,7 +94,7 @@ function setupUser ({UserModel, OrderModel, ProductModel, CompanyModel}) {
                 }
             ],
             active: true
-        });
+        }).sort({ createdAt: -1 }).exec();
         users = await addCompaniesToUsers(users);
         return users;
     }
