@@ -1,3 +1,4 @@
+
 function setupOrder({ UserModel, OrderModel, ProductModel, SerialModel, CompanyModel }) {
 
     async function create(user, productList) {
@@ -39,29 +40,34 @@ function setupOrder({ UserModel, OrderModel, ProductModel, SerialModel, CompanyM
         //me traigo las compañias de los usuarios
         let companies = users.map((u) => u.company);
         companies = await CompanyModel.find({ _id: { $in: companies } })
-
         // Me traigo todos los productos
         const products = await ProductModel.find({ active: true });
 
         // Modifico las ordenes para incluir todos los valores
-        orders = orders.map((order) => {
-            order.id = order._id;
-
+        const resultOrders = orders.map((order) => {
             //Agrego el usuario
-            order.user = users.find(u => u._id === order.user);
-
+            const user = users.find(u => u._id === order.user);
+            
             //Agrego la company
-            order.user.company = companies.find(c => c._id === order.user.company);
-
+            const company = companies.find(c => c._id === user.company);
+            
             //Introduzco la información actual de los productos
-            order.products = order.products.map(product => ({
+            const listProducts = order.products.map(product => ({
                 ...products.find((p) => p._id === product._id),
                 uniqueId: product.cartId || product._id,
                 details: product.details
             }));
-            return order;
+            return {
+                ...order,
+                id: order._id,
+                products: listProducts,
+                user:{
+                    ...user,
+                    company,
+                }
+            };
         });
-        return orders;
+        return resultOrders;
     }
 
 

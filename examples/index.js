@@ -1,8 +1,11 @@
 const db = require('../index');
 
 (async () => {
-    const { User, Company, Product } = await db({ path: __dirname, filename: 'newdb.db' });
+    const { Order } = await db({ 
+        path: '/Users/imac/Library/Application Support/Electron', 
+        filename: 'lunchdb' 
+    });
 
-    const res = await User.getAll();
-    console.log(res);
+    const { data } = await Order.getAll(5);
+    console.log(data);
 })();
