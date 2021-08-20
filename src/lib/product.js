@@ -43,13 +43,13 @@ function setProduct ({ ProductModel }) {
 
    
     async function getAll () {
-        const products = await ProductModel.find({ active: true });
+        const products = await ProductModel.find({ active: true }).sort({ createdAt: -1 }).exec();
         return products.map(product => ({...product, id: product._id}));
     }
 
    
     async function getFavorites () {
-        const products = await ProductModel.find({ active: true, favorite: true });
+        const products = await ProductModel.find({ active: true, favorite: true }).sort({ updatedAt: -1 }).exec();
         return products.map(product => ({...product, id: product._id}));
     }
 
