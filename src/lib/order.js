@@ -106,9 +106,18 @@ function setupOrder({ UserModel, OrderModel, ProductModel, SerialModel, CompanyM
     }
 
 
+    async function destroy(order) {
+        if (typeof order === 'object'){
+            order = order._id;
+        }
+        const res = await OrderModel.remove({ _id: order });
+        return res;
+    }
+
     return {
         create,
-        getAll
+        getAll,
+        destroy
     }
 }
 
