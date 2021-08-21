@@ -12,5 +12,8 @@
   "dependencies": {
     "nedb-promises": "github:fabian0896/nedb-promises",
     "yup": "^0.32.9"
+  },
+  "devDependencies": {
+    "date-fns": "^2.23.0"
   }
 }

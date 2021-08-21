@@ -114,10 +114,24 @@ function setupOrder({ UserModel, OrderModel, ProductModel, SerialModel, CompanyM
         return res;
     }
 
+
+    async function getAllByDateRange(dateRange) {
+        let [startDate, endDate] = dateRange.map(date => {
+            if (typeof date !== 'object') {
+                return new Date(date);
+            }
+            return date;
+        });
+        let orders = await OrderModel.find({ createdAt: {$gte: startDate, $lte: endDate} });
+        orders = await addAllValues(orders);
+        return orders;
+    }
+
     return {
         create,
         getAll,
-        destroy
+        destroy,
+        getAllByDateRange
     }
 }
 
