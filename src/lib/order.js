@@ -115,7 +115,7 @@ function setupOrder({ UserModel, OrderModel, ProductModel, SerialModel, CompanyM
     }
 
 
-    async function getAllByDateRange(dateRange) {
+    async function getAllByDateRange(dateRange, options) {
         let [startDate, endDate] = dateRange.map(date => {
             if (typeof date !== 'object') {
                 return new Date(date);
