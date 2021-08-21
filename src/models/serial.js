@@ -17,13 +17,8 @@ module.exports = async function setupSerialModel(databasePath, filename) {
     await db.ensureIndex({fieldName: 'consecutive'});
     await db.ensureIndex({fieldName: 'type', unique: true});
     db.getConsecutive = async (type) => {
-        let data = await db.findOne({ type });
-        if (!data) {
-            data = await db.insert({ type, consecutive: 1 });
-            return data.consecutive;
-        }
-        await db.update({ type }, {$inc: { consecutive: 1 }});
-        return data.consecutive + 1;
+        const data = await db.update({ type }, { $inc: { consecutive: 1 }}, {upsert: true, returnUpdatedDocs: true});
+        return data.consecutive;
     }
     return db;
 }
