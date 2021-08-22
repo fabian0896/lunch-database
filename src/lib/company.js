@@ -1,5 +1,5 @@
 
-function setupCompany ({UserModel, CompanyModel}) {
+function setupCompany ({UserModel, CompanyModel, OrderModel}) {
    
     async function create (values){
         const result = await CompanyModel.create(values);
@@ -52,13 +52,43 @@ function setupCompany ({UserModel, CompanyModel}) {
         return company;
     }
 
+    async function getReportData(dateRange) {
+        const [startDate, endDate] = dateRange.map(date => {
+            if (typeof date !== 'object') {
+                return new Date(date);
+            }
+            return date;
+        });
+
+        const companies = await getListWithUsers();
+        
+        const result = [];
+        for(let company of companies){
+            const formatUsers = [];
+            for(let user of company.users){
+                const orders = await OrderModel.find({ user: user._id, createdAt: {$gte: startDate, $lte: endDate} });
+                formatUsers.push({
+                    ...user,
+                    orders
+                });
+            }
+            result.push({
+                ...company,
+                users: formatUsers
+            });
+        }
+
+        return result;
+    }
+
     return {
         create,
         getListWithUsers,
         getList,
         destroy,
         update,
-        getById
+        getById,
+        getReportData
     }
 }
 
