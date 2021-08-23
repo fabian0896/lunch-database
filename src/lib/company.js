@@ -62,21 +62,43 @@ function setupCompany ({UserModel, CompanyModel, OrderModel}) {
 
         const companies = await getListWithUsers();
         
-        const result = [];
+        let result = [];
         for(let company of companies){
             const formatUsers = [];
             for(let user of company.users){
                 const orders = await OrderModel.find({ user: user._id, createdAt: {$gte: startDate, $lte: endDate} });
+                
+                const totalPrice = orders.reduce((sum, order) => {
+                    const totalOrderPrice = order.products.reduce((s, product) => {
+                        return s + (product.details.price * product.details.quantity);
+                    }, 0);
+                    return sum + totalOrderPrice;
+                }, 0);
+
                 formatUsers.push({
                     ...user,
-                    orders
+                    orders,
+                    totalPrice,
+                    totalOrders: orders.length
                 });
             }
             result.push({
                 ...company,
-                users: formatUsers
+                users: formatUsers,
             });
         }
+
+        result = result.map((company) => {
+            const [totalPrice, totalOrders] = company.users.reduce((sum, user) => {
+                const [price, orders] = sum;
+                return [price + user.totalPrice, orders + user.totalOrders];
+            }, [0, 0]);
+            return {
+                ...company,
+                totalPrice,
+                totalOrders
+            }
+        })
 
         return result;
     }

@@ -3,7 +3,7 @@ const { startOfDay, endOfDay } = require('date-fns');
 
 
 (async () => {
-    const { Order, User } = await db({ 
+    const { Order, User, Company } = await db({ 
         path: '/Users/imac/Library/Application Support/Electron', 
         filename: 'lunchdb' 
     });
@@ -12,7 +12,7 @@ const { startOfDay, endOfDay } = require('date-fns');
     const range = [startOfDay(now).getTime(), endOfDay(now).getTime()];
     console.log(range);
     console.time('get-orders');
-    const orders = await Order.getAllByDateRange(range);
+    const orders = await Company.getReportData(range);
     console.timeEnd('get-orders')
-    console.log(orders);
+    console.log(JSON.stringify(orders, null, 2));
 })();
