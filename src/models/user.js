@@ -9,7 +9,8 @@ const validationSchema = Yup.object().shape({
     identification: Yup.string(),
     cardId: Yup.string().required(),
     active: Yup.bool().default(true),
-    company: Yup.string()
+    company: Yup.string(),
+    avatar: Yup.string().default(null)
 });
 
 /**
@@ -23,6 +24,7 @@ module.exports = async function setupUserModel(databasePath, filename) {
     });
     db.validationSchema = validationSchema;
     await db.load();
+    await db.ensureIndex({fieldName: 'company', unique: true});
     await db.ensureIndex({fieldName: 'cardId', unique: true});
     await db.ensureIndex({fieldName: 'active'});
     return db;
