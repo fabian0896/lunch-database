@@ -24,7 +24,7 @@ module.exports = async function setupUserModel(databasePath, filename) {
     });
     db.validationSchema = validationSchema;
     await db.load();
-    await db.ensureIndex({fieldName: 'company', unique: true});
+    await db.ensureIndex({fieldName: 'company'});
     await db.ensureIndex({fieldName: 'cardId', unique: true});
     await db.ensureIndex({fieldName: 'active'});
     return db;
