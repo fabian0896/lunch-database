@@ -125,14 +125,21 @@ function setupOrder({ UserModel, OrderModel, ProductModel, SerialModel, CompanyM
     }
 
 
-    async function getAllByDateRange(dateRange) {
+    async function getAllByDateRange(dateRange, user) {
+        const query = {}
+        if (user) {
+            if (typeof user === 'object') {
+                user = user._id;
+            }
+            query.user = user;
+        }
         const [startDate, endDate] = dateRange.map(date => {
             if (typeof date !== 'object') {
                 return new Date(date);
             }
             return date;
         });
-        let orders = await OrderModel.find({ createdAt: {$gte: startDate, $lte: endDate} });
+        let orders = await OrderModel.find({ createdAt: {$gte: startDate, $lte: endDate}, ...query });
         orders = await addAllValues(orders);
         return orders;
     }
