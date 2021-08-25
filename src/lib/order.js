@@ -71,7 +71,7 @@ function setupOrder({ UserModel, OrderModel, ProductModel, SerialModel, CompanyM
     }
 
 
-    async function getAll(limit=5, user) {
+    async function getAll(limit=5, user, dateRange) {
         const query = {};
         let count = limit;
 
@@ -80,6 +80,16 @@ function setupOrder({ UserModel, OrderModel, ProductModel, SerialModel, CompanyM
                 user = user._id;
             }
             query.user = user
+        }
+
+        if (dateRange) {
+            const [startDate, endDate] = dateRange.map(date => {
+                if (typeof date !== 'object') {
+                    return new Date(date);
+                }
+                return date;
+            });
+            query.createdAt = {$gte: startDate, $lte: endDate};
         }
 
         // obtengo todas las ordenes
@@ -115,7 +125,7 @@ function setupOrder({ UserModel, OrderModel, ProductModel, SerialModel, CompanyM
     }
 
 
-    async function getAllByDateRange(dateRange, options) {
+    async function getAllByDateRange(dateRange) {
         const [startDate, endDate] = dateRange.map(date => {
             if (typeof date !== 'object') {
                 return new Date(date);
