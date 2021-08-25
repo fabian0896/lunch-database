@@ -22,7 +22,7 @@ module.exports = async function setupOrderModel(databasePath, filename) {
         timestampData: true
     });
     db.validationSchema = validationSchema;
-    await db.ensureIndex({fieldName: 'user', unique: true});
+    await db.ensureIndex({ fieldName: 'user' });
     await db.ensureIndex({ fieldName: 'createdAt' });
     await db.load();
     return db;
