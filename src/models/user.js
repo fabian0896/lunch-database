@@ -10,7 +10,7 @@ const validationSchema = Yup.object().shape({
     cardId: Yup.string().required(),
     active: Yup.bool().default(true),
     company: Yup.string(),
-    avatar: Yup.string().default(null)
+    avatar: Yup.string().nullable().default(null),
 });
 
 /**
