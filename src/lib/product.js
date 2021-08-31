@@ -36,12 +36,21 @@ function setProduct ({ ProductModel }) {
         return result;
     }
     
+    async function disable (product) {
+        if (typeof product === 'object') {
+            product = product._id;
+        }
+        const result = await ProductModel.update({ _id: product }, { $set: { active: false } }, {returnUpdatedDocs: true});
+        return result;
+    }
+
     async function update (productId, values) {
         const result = await ProductModel.update({ _id: productId }, { $set: values }, {});
         return result;
     }
 
-   
+    
+
     async function getAll () {
         const products = await ProductModel.find({ active: true }).sort({ createdAt: -1 }).exec();
         return products.map(product => ({...product, id: product._id}));
@@ -68,7 +77,8 @@ function setProduct ({ ProductModel }) {
         getById,
         getFavorites,
         setfavorite,
-        toggleFavorite
+        toggleFavorite,
+        disable
     }
 }
 
