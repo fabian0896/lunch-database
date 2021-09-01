@@ -27,7 +27,7 @@ function setupOrder({ UserModel, OrderModel, ProductModel, SerialModel, CompanyM
 
 
     async function addAllValues(orders) {
-        //reviso que a que usuarios pertenecen esas ordenes
+        //reviso a que usuarios pertenecen esas ordenes
         let users = orders.reduce((usersId, order) => {
             if (usersId.indexOf(order.user) !== -1) {
                 return usersId;
@@ -41,7 +41,7 @@ function setupOrder({ UserModel, OrderModel, ProductModel, SerialModel, CompanyM
         let companies = users.map((u) => u.company);
         companies = await CompanyModel.find({ _id: { $in: companies } })
         // Me traigo todos los productos
-        const products = await ProductModel.find({ active: true });
+        const products = await ProductModel.find({});
 
         // Modifico las ordenes para incluir todos los valores
         const resultOrders = orders.map((order) => {
